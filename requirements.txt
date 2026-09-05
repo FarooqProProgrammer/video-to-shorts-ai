@@ -1,0 +1,7 @@
+yt-dlp
+faster-whisper
+openai
+opencv-python-headless
+mediapipe
+moviepy
+python-dotenv
