@@ -53,5 +53,4 @@ def analyze_content(transcript: dict) -> list:
         return segments
     except Exception as e:
         print(f"Error during LLM analysis: {e}")
-        # Return a fallback segment if it fails so the pipeline doesn't completely crash
-        return [{"start": 0, "end": 30, "reason": "Fallback due to LLM error"}]
+        raise Exception(f"LLM API Error: {str(e)}")

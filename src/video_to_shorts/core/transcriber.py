@@ -1,6 +1,6 @@
 from faster_whisper import WhisperModel
 
-def transcribe_video(video_path: str) -> dict:
+def transcribe_video(video_path: str, progress_callback=None) -> dict:
     """Transcribes the video using faster-whisper and returns a dictionary with timestamps."""
     print(f"Transcribing {video_path}...")
     
@@ -23,5 +23,10 @@ def transcribe_video(video_path: str) -> dict:
         }
         transcript_segments.append(segment_data)
         full_text += segment.text + " "
+        
+        if progress_callback and info.duration > 0:
+            # Calculate progress based on the current timestamp vs total duration
+            progress = min(segment.end / info.duration, 1.0)
+            progress_callback(progress, segment.text)
         
     return {"text": full_text.strip(), "segments": transcript_segments}
